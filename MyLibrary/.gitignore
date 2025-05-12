@@ -1,0 +1,62 @@
+﻿## Системные каталоги
+.vs/
+.idea/
+*.user
+*.suo
+
+## Rider и JetBrains
+*.sln.iml
+
+## Сборка
+bin/
+obj/
+out/
+
+## Пакеты NuGet
+*.nupkg
+*.snupkg
+packages/
+# Если используешь пакетный кэш:
+**/packages/*/tools/
+
+## Конфигурация
+appsettings.Development.json
+appsettings.*.json
+
+## Логи и временные файлы
+*.log
+*.tlog
+*.tmp
+*.bak
+*.swp
+*.DS_Store
+Thumbs.db
+
+## Публикация
+publish/
+*.db
+
+## Секреты и ключи
+secrets.json
+
+## Тестовые результаты
+TestResults/
+*.coverage
+*.coveragexml
+
+## ReSharper
+_ReSharper*/
+*.DotSettings.user
+
+## dotnet CLI
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+## Rider
+.idea/
+
+## OS-specific
+ehthumbs.db
+Icon?
+Desktop.ini
