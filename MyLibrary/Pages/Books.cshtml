@@ -1,0 +1,154 @@
+﻿@page "/books"
+@model MyLibrary.Pages.BooksModel
+
+@{
+    ViewData["Title"] = "Мої книжки";
+}
+
+<style>
+    .form-section {
+        margin-top: 40px;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        background-color: #fafafa;
+        max-width: 500px;
+    }
+
+    .form-section div {
+        margin-bottom: 12px;
+    }
+
+    .form-section label {
+        font-weight: bold;
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    input[type="text"], input[type="number"] {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+    button {
+        padding: 8px 16px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        opacity: 0.9;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    th, td {
+        border: 1px solid #ccc;
+        padding: 8px 12px;
+        text-align: left;
+    }
+
+    th {
+        background-color: #f5f5f5;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+
+    .text-danger {
+        color: red;
+    }
+</style>
+
+
+<form method="get" style="display: flex; gap: 10px; align-items: center; margin-bottom: 20px;">
+    <input type="text" name="search" placeholder="Пошук книги..." value="@Request.Query["search"]" class="form-control" style="flex: 1;" />
+    <button type="submit" class="btn btn-primary">Знайти</button>
+</form>
+
+@if (Model.Books.Count == 0 && !string.IsNullOrWhiteSpace(Request.Query["search"]))
+{
+    <p>Книгу не знайдено.</p>
+}
+
+<h2>Мої книжки</h2>
+<table>
+    <thead>
+    <tr>
+        <th>Назва</th>
+        <th>Автор</th>
+        <th>Рік видання</th>
+        <th>Жанр</th>
+        <th>Прочитана?</th>
+        <th>інфо</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var book in Model.Books)
+    {
+    <tr>
+        <td>@book.Title</td>
+        <td>@book.Author</td>
+        <td>@book.Year</td>
+        <td>@book.Genre</td>
+        <td>@(book.IsRead ? "так" : "ні")</td>
+        <td>
+            <a asp-page="book" asp-route-id="@book.Id">інфо</a>
+        </td>
+    </tr>
+    }
+    </tbody>
+</table>
+
+<div class="form-section">
+    <h3>Додати нову книгу</h3>
+
+    <form method="post">
+        <div>
+            <label asp-for="NewBook.Title">Назва:</label>
+            <input asp-for="NewBook.Title" />
+            <span asp-validation-for="NewBook.Title" class="text-danger"></span>
+        </div>
+
+        <div>
+            <label asp-for="NewBook.Author">Автор:</label>
+            <input asp-for="NewBook.Author" />
+            <span asp-validation-for="NewBook.Author" class="text-danger"></span>
+        </div>
+
+        <div>
+            <label asp-for="NewBook.Year">Рік:</label>
+            <input asp-for="NewBook.Year" type="number" />
+            <span asp-validation-for="NewBook.Year" class="text-danger"></span>
+        </div>
+
+        <div>
+            <label asp-for="NewBook.Genre">Жанр:</label>
+            <input asp-for="NewBook.Genre" />
+            <span asp-validation-for="NewBook.Genre" class="text-danger"></span>
+        </div>
+
+        <div>
+            <label>
+                <input asp-for="NewBook.IsRead" type="checkbox" />
+                Прочитана
+            </label>
+        </div>
+
+        <button type="submit">Додати</button>
+    </form>
+</div>
+
+@section Scripts {
+<partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,111 @@
+﻿@page "/edit/{id:int}"
+@model MyLibrary.Pages.EditModel
+@{
+    ViewData["Title"] = "Редагування книг";
+}
+
+<h2>Редагування книги</h2>
+
+<style>
+    .form-container {
+        max-width: 500px;
+        margin: 30px auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        background-color: #fafafa;
+        font-family: Arial, sans-serif;
+    }
+
+    .form-container div {
+        margin-bottom: 15px;
+    }
+
+    label {
+        font-weight: bold;
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    input[type="text"],
+    input[type="number"] {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+    input[type="checkbox"] {
+        margin-right: 5px;
+    }
+
+    .form-buttons {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    button {
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        opacity: 0.9;
+    }
+</style>
+
+@if (Model.Book != null)
+{
+    <div class="form-container">
+        <form method="post">
+            <input type="hidden" asp-for="Book!.Id"/>
+
+            <div>
+                <label asp-for="Book!.Title"></label>
+                <input asp-for="Book!.Title"/>
+                <span asp-validation-for="Book!.Title" class="text-danger"></span>
+            </div>
+
+            <div>
+                <label asp-for="Book!.Author"></label>
+                <input asp-for="Book!.Author"/>
+                <span asp-validation-for="Book!.Author" class="text-danger"></span>
+            </div>
+
+            <div>
+                <label asp-for="Book!.Year"></label>
+                <input asp-for="Book!.Year" type="number"/>
+                <span asp-validation-for="Book!.Year" class="text-danger"></span>
+            </div>
+
+            <div>
+                <label asp-for="Book!.Genre"></label>
+                <input asp-for="Book!.Genre"/>
+                <span asp-validation-for="Book!.Genre" class="text-danger"></span>
+            </div>
+
+            <div>
+                <label>
+                    <input asp-for="Book!.IsRead" type="checkbox"/>
+                    Прочитана
+                </label>
+            </div>
+
+            <div class="form-buttons">
+                <button type="submit">Зберегти</button>
+                <a href="/books" style="text-decoration:none;">
+                    <button type="button">Скасувати</button>
+                </a>
+            </div>
+        </form>
+    </div>
+    
+}
+else
+{
+    <div class="not-found">Такої книги немає</div>
+}
